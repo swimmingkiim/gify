@@ -1,3 +1,7 @@
+## 1.0.1
+
+- Fix android install error
+
 ## 1.0.0
 
 initialize gify package
