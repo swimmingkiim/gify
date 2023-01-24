@@ -1,4 +1,4 @@
-package com.example.gify
+package com.swimmingkiim.gify
 
 import androidx.annotation.NonNull
 

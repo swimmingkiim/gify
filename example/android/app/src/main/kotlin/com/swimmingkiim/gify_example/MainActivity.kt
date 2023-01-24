@@ -1,4 +1,4 @@
-package com.example.gify_example
+package com.swimmingkiim.gify_example
 
 import io.flutter.embedding.android.FlutterActivity
 
