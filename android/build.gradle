@@ -1,4 +1,4 @@
-group 'com.example.gify'
+group 'com.swimmingkiim.gify'
 version '1.0-SNAPSHOT'
 
 buildscript {
@@ -41,6 +41,6 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 24
     }
 }

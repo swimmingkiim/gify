@@ -29,7 +29,9 @@ flutter:
     implements: gify
     platforms:
       android:
+        package: com.swimmingkiim.gify
         dartPluginClass: GifyNative
+        pluginClass: GifyPlugin
       ios:
         dartPluginClass: GifyNative
       web:
