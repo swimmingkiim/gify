@@ -1,0 +1,41 @@
+name: gify
+description: Make GIF with video and images
+version: 0.0.1
+homepage: https://github.com/swimmingkiim/gify
+
+environment:
+  sdk: ">=2.18.6 <3.0.0"
+  flutter: ">=2.11.0"
+
+dependencies:
+  cross_file: ^0.3.3+2
+  ffmpeg_kit_flutter: ^5.1.0
+  flutter:
+    sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
+  js: ^0.6.4
+  path_provider: ^2.0.11
+  plugin_platform_interface: ^2.0.2
+  universal_html: ^2.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  plugin:
+    implements: gify
+    platforms:
+      android:
+        dartPluginClass: GifyNative
+      ios:
+        dartPluginClass: GifyNative
+      web:
+        pluginClass: GifyWeb
+        fileName: gify_web.dart
+
+  assets:
+    - assets/web/js/
+    - assets/web/js/ffmpeg-core/
