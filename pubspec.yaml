@@ -1,6 +1,6 @@
 name: gify
 description: Make GIF with video and images
-version: 0.0.1
+version: 1.0.0
 homepage: https://github.com/swimmingkiim/gify
 
 environment:
