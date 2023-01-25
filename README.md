@@ -2,10 +2,9 @@
 
 Make GIF with video and images
 
-## Example
+## Example ( [Live Demo](https://swimmingkiim.github.io/gif_maker/) )
 
-- [Live Demo](https://swimmingkiim.github.io/gif_maker/)
-  ![createGifFromVideo example](https://github.com/swimmingkiim/blog-comments/blob/main/assets/images/gify_create_gif_from_video_example.gif?raw=true)
+![createGifFromVideo example](https://github.com/swimmingkiim/blog-comments/blob/main/assets/images/gify_create_gif_from_video_example.gif?raw=true)
 
 ## Features
 
