@@ -29,12 +29,22 @@ class VideoRepositoryNative {
     }
 
     final Directory directory = Directory(tempDir.path);
-    final List<FileSystemEntity> fileList = directory
-        .listSync(recursive: true)
-        .where((file) => file.path
-            .startsWith('${tempDir.path}/${videoFile.name}-$currentTime-'))
+    final allFileList = directory.listSync(recursive: true);
+    final List<FileSystemEntity> fileList = allFileList
+        .where((file) =>
+            file.path.startsWith(
+                '${tempDir.path}/${videoFile.name}-$currentTime-') &&
+            file.path.endsWith('png'))
         .toList()
-      ..sort((a, b) => b.path.compareTo(a.path) * -1);
+      ..sort((a, b) {
+        final int aNumber = int.parse(a.path
+            .replaceFirst('${tempDir.path}/${videoFile.name}-$currentTime-', '')
+            .replaceFirst('.png', ''));
+        final int bNumber = int.parse(b.path
+            .replaceFirst('${tempDir.path}/${videoFile.name}-$currentTime-', '')
+            .replaceFirst('.png', ''));
+        return aNumber - bNumber;
+      });
 
     for (var i = 0; i < fileList.length; i++) {
       result.add(await File(fileList[i].path).readAsBytes());
