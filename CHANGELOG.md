@@ -1,3 +1,9 @@
+## 1.0.2
+
+- Fix frame sort order
+- Apply fps when generate GIF file in native
+- Remove some logs and comments in web
+
 ## 1.0.1
 
 - Fix android install error
