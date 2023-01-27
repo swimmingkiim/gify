@@ -28,7 +28,7 @@ class GifRepositoryNative {
     }
 
     final String gifCommand =
-        '-f image2 -framerate 5 -i ${tempDir.path}/${videoFile.name}-$currentTime-%3d.png -loop 0 ${tempDir.path}/${videoFile.name}_$currentTime.gif';
+        '-f image2 -r $fps -i ${tempDir.path}/${videoFile.name}-$currentTime-%3d.png -loop 0 ${tempDir.path}/${videoFile.name}_$currentTime.gif';
     final gifSession = await FFmpegKit.execute(gifCommand);
 
     final gifReturnCode = await gifSession.getReturnCode();
@@ -67,7 +67,7 @@ class GifRepositoryNative {
     }
 
     final String gifCommand =
-        '-f image2 -framerate $fps -i ${tempDir.path}/$currentTime-%d.png -loop 0 ${tempDir.path}/gif_maker_result_$currentTime.gif';
+        '-f image2 -r $fps -i ${tempDir.path}/$currentTime-%d.png -loop 0 ${tempDir.path}/gif_maker_result_$currentTime.gif';
     final gifSession = await FFmpegKit.execute(gifCommand);
 
     final gifReturnCode = await gifSession.getReturnCode();
