@@ -2,8 +2,6 @@
 
 async function getGifFromVideo(path, frameRate, onEnd) {
     const { createFFmpeg, fetchFile } = FFmpeg;
-    console.log(location);
-    console.log(new URL("ffmpeg-core/ffmpeg-core.js", location).href);
     const ffmpeg = createFFmpeg({
         log: true,
         corePath: new URL("ffmpeg-core/ffmpeg-core.js", location).href,
@@ -31,8 +29,6 @@ async function getGifFromImages(
     onEnd
 ) {
     const { createFFmpeg, fetchFile } = FFmpeg;
-    console.log(location);
-    console.log(new URL("ffmpeg-core/ffmpeg-core.js", location).href);
     const currentTime = Date.now();
     const ffmpeg = createFFmpeg({
         log: true,
@@ -87,8 +83,6 @@ async function getGifFromImages(
 
 async function getFramesFromVideo(path, frameRate, onEnd) {
     const { createFFmpeg, fetchFile } = FFmpeg;
-    console.log(location);
-    console.log(new URL("ffmpeg-core/ffmpeg-core.js", location).href);
     const ffmpeg = createFFmpeg({
         log: true,
         corePath: new URL("ffmpeg-core/ffmpeg-core.js", location).href,
@@ -120,68 +114,3 @@ async function getFramesFromVideo(path, frameRate, onEnd) {
     }
     onEnd(result);
 }
-
-
-async function saveGif(gifBytes, onEnd) {
-    const aTag = document.createElement('a');
-    aTag.style.display = 'none';
-    document.body.appendChild(aTag);
-    const blob = new Blob( [ gifBytes ], { type: 'image/gif' } );	
-    aTag.href = URL.createObjectURL( blob );
-    aTag.download = 'gif_result.gif';
-    aTag.click();
-    document.body.removeChild(aTag);
-    onEnd(null);
-}
-
-// ==================== gifshot version ====================
-// function getGifFromVideo(path, onEnd) {
-//     const video = document.createElement("video");
-//     video.onloadedmetadata = (e) => {
-//         const frameCount = Math.floor(video.duration) * 10;
-//         const gifWidth = Math.min(512, video.videoWidth);
-//         const gifHeight = (video.videoHeight * gifWidth) / video.videoWidth;
-//         gifshot.createGIF(
-//             {
-//                 gifWidth: gifWidth,
-//                 gifHeight: gifHeight,
-//                 numFrames: frameCount,
-//                 frameDuration: 1,
-//                 numWorkers: 5,
-//                 progressCallback: (captureProgress) => console.log(captureProgress),
-//                 video: [path],
-//             },
-//             async function (obj) {
-//                 if (!obj.error) {
-//                     const base64 = obj.image;
-//                     const result = await fetch(base64);
-//                     const data = await result.arrayBuffer();
-//                     console.log("done!");
-//                     onEnd(data);
-//                 }
-//             }
-//         );
-//     };
-//     video.src = path;
-// }
-
-// function getGifFromImages(imagePaths, gifWidth, gifHeight, onEnd) {
-//     gifshot.createGIF(
-//         {
-//             gifWidth: gifWidth,
-//             gifHeight: gifHeight,
-//             numFrames: imagePaths.length,
-//             frameDuration: 5,
-//             numWorkers: 5,
-//             images: imagePaths,
-//         },
-//         async function (obj) {
-//             if (!obj.error) {
-//                 const base64 = obj.image;
-//                 const result = await fetch(base64);
-//                 const data = await result.arrayBuffer();
-//                 onEnd(data);
-//             }
-//         }
-//     );
-// }
