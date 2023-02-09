@@ -36,7 +36,7 @@ flutter pub add gify
     final XFile? videoFile =
         await ImagePicker().pickVideo(source: ImageSource.gallery);
     if (videoFile != null) {
-      final result = await _gifyPlugin.getFramesBytes(videoFile, 1);
+      final result = await _gifyPlugin.getFramesBytes(videoFile, fps:1);
       // Uncomment below code to see result
       // print(result);
       return result;
@@ -48,7 +48,7 @@ flutter pub add gify
     final XFile? videoFile =
         await ImagePicker().pickVideo(source: ImageSource.gallery);
     if (videoFile != null) {
-      final result = await _gifyPlugin.createGifFromVideo(videoFile, 1);
+      final result = await _gifyPlugin.createGifFromVideo(videoFile, fps:1, width: 320);
       // Uncomment below code to see result
       // print(result);
       return result;
@@ -58,7 +58,7 @@ flutter pub add gify
 
   Future<Uint8List?> testImagesToGif() async {
     final List<XFile> imageFiles = await ImagePicker().pickMultiImage();
-    final result = await _gifyPlugin.createGifFromImages(imageFiles, 1);
+    final result = await _gifyPlugin.createGifFromImages(imageFiles, fps: 5, height: 780);
     // Uncomment below code to see result
     // print(result);
     return result;
