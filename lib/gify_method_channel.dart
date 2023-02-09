@@ -11,7 +11,10 @@ class MethodChannelGify extends GifyPlatform {
   final methodChannel = const MethodChannel('gify');
 
   @override
-  Future<List<Uint8List>?> getFramesBytes(XFile videoFile, int fps) async {
+  Future<List<Uint8List>?> getFramesBytes(
+    XFile videoFile, {
+    int fps = 1,
+  }) async {
     final frames = await methodChannel
         .invokeMethod<List<Uint8List>>('getFramesBytes', [videoFile, fps]);
     return frames;
@@ -19,21 +22,39 @@ class MethodChannelGify extends GifyPlatform {
 
   @override
   Future<Uint8List?> createGifFromVideo(
-    XFile videoFile,
-    int fps,
-  ) async {
+    XFile videoFile, {
+    int fps = 1,
+    int? width,
+    int? height,
+    bool forceOriginalAspectRatio = true,
+  }) async {
     final gifBytes = await methodChannel
-        .invokeMethod<Uint8List>('createGifFromVideo', [videoFile, fps]);
+        .invokeMethod<Uint8List>('createGifFromVideo', <String, dynamic>{
+      'videoFile': videoFile,
+      'fps': fps,
+      'width': width,
+      'height': height,
+      'forceOriginalAspectRatio': forceOriginalAspectRatio,
+    });
     return gifBytes;
   }
 
   @override
   Future<Uint8List?> createGifFromImages(
-    List<XFile> imageFiles,
-    int fps,
-  ) async {
+    List<XFile> imageFiles, {
+    int fps = 1,
+    int? width,
+    int? height,
+    bool forceOriginalAspectRatio = true,
+  }) async {
     final gifBytes = await methodChannel
-        .invokeMethod<Uint8List>('createGifFromImages', [imageFiles, fps]);
+        .invokeMethod<Uint8List>('createGifFromImages', <String, dynamic>{
+      'imageFiles': imageFiles,
+      'fps': fps,
+      'width': width,
+      'height': height,
+      'forceOriginalAspectRatio': forceOriginalAspectRatio,
+    });
     return gifBytes;
   }
 }

@@ -24,6 +24,9 @@ void main() {
             .map<List<String>>((path) => List<String>.from(path))
             .toList();
     final int fps = e.data['fps'];
+    final int width = e.data['width'] ?? -1;
+    final int height = e.data['height'] ?? -1;
+    final bool forceOriginalAspectRatio = e.data['forceOriginalAspectRatio'];
 
     self.importScripts('$basePath/ffmpeg-core/ffmpeg-core.js');
     self.importScripts('$basePath/ffmpeg.min.js');
@@ -31,11 +34,18 @@ void main() {
 
     final Completer completer = Completer();
     late Uint8List data;
-    getGifFromImages(imagePaths, fps, universal_js.allowInterop((results) {
-      final byteBuffer = results as ByteBuffer;
-      data = byteBuffer.asUint8List();
-      completer.complete();
-    }));
+    getGifFromImages(
+      imagePaths,
+      fps,
+      width,
+      height,
+      forceOriginalAspectRatio,
+      universal_js.allowInterop((results) {
+        final byteBuffer = results as ByteBuffer;
+        data = byteBuffer.asUint8List();
+        completer.complete();
+      }),
+    );
     await completer.future;
     self.postMessage(data, null);
   });

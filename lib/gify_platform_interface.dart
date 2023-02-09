@@ -25,21 +25,30 @@ abstract class GifyPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<List<Uint8List>?> getFramesBytes(XFile videoFile, int fps) async {
+  Future<List<Uint8List>?> getFramesBytes(
+    XFile videoFile, {
+    int fps = 1,
+  }) async {
     throw UnimplementedError('createGifFromVideo() has not been implemented.');
   }
 
   Future<Uint8List?> createGifFromVideo(
-    XFile videoFile,
-    int fps,
-  ) async {
+    XFile videoFile, {
+    int fps = 1,
+    int? width,
+    int? height,
+    bool forceOriginalAspectRatio = true,
+  }) async {
     throw UnimplementedError('createGifFromVideo() has not been implemented.');
   }
 
   Future<Uint8List?> createGifFromImages(
-    List<XFile> imageFiles,
-    int fps,
-  ) async {
+    List<XFile> imageFiles, {
+    int fps = 1,
+    int? width,
+    int? height,
+    bool forceOriginalAspectRatio = true,
+  }) async {
     throw UnimplementedError('createGifFromImages() has not been implemented.');
   }
 }

@@ -21,6 +21,9 @@ void main() {
     String basePath = '.';
     final String path = e.data['path'];
     final int fps = e.data['fps'];
+    final int width = e.data['width'] ?? -1;
+    final int height = e.data['height'] ?? -1;
+    final bool forceOriginalAspectRatio = e.data['forceOriginalAspectRatio'];
     final Completer completer = Completer();
     late List<int> data;
 
@@ -28,11 +31,18 @@ void main() {
     self.importScripts('$basePath/ffmpeg.min.js');
     self.importScripts('$basePath/get_gif.js');
 
-    getGifFromVideo(path, fps, universal_js.allowInterop((results) {
-      final byteBuffer = results as ByteBuffer;
-      data = byteBuffer.asUint8List();
-      completer.complete();
-    }));
+    getGifFromVideo(
+      path,
+      fps,
+      width,
+      height,
+      forceOriginalAspectRatio,
+      universal_js.allowInterop((results) {
+        final byteBuffer = results as ByteBuffer;
+        data = byteBuffer.asUint8List();
+        completer.complete();
+      }),
+    );
     await completer.future;
     self.postMessage(data, null);
   });

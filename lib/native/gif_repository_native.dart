@@ -14,11 +14,17 @@ import 'package:path_provider/path_provider.dart';
 class GifRepositoryNative {
   GifRepositoryNative();
 
-  Future<Uint8List> createGifFromVideo(XFile videoFile, int fps) async {
+  Future<Uint8List> createGifFromVideo(
+    XFile videoFile, {
+    int fps = 1,
+    int? width,
+    int? height,
+    bool forceOriginalAspectRatio = true,
+  }) async {
     final tempDir = await getTemporaryDirectory();
     final String currentTime = DateTime.now().millisecond.toString();
     final String framesCommand =
-        '-i ${videoFile.path} -r $fps -f image2 ${tempDir.path}/${videoFile.name}-$currentTime-%3d.png';
+        '-i ${videoFile.path} -vf scale=w=${width ?? -1}:h=${height ?? -1}${forceOriginalAspectRatio ? ':force_original_aspect_ratio=decrease' : ''} -r $fps -f image2 ${tempDir.path}/${videoFile.name}-$currentTime-%3d.png';
     final framesSession = await FFmpegKit.execute(framesCommand);
 
     final framesReturnCode = await framesSession.getReturnCode();
@@ -44,7 +50,13 @@ class GifRepositoryNative {
     return result;
   }
 
-  Future<Uint8List> createGifFromImages(List<XFile> rawImages, int fps) async {
+  Future<Uint8List> createGifFromImages(
+    List<XFile> rawImages, {
+    int fps = 1,
+    int? width,
+    int? height,
+    bool forceOriginalAspectRatio = true,
+  }) async {
     final tempDir = await getTemporaryDirectory();
     final String currentTime = DateTime.now().millisecond.toString();
     for (int i = 0; i < rawImages.length; i++) {
@@ -58,7 +70,7 @@ class GifRepositoryNative {
         path = image.path;
       }
       final String convertCommand =
-          '-i $path ${tempDir.path}/$currentTime-$i.png';
+          '-i $path -vf scale=w=${width ?? -1}:h=${height ?? -1}${forceOriginalAspectRatio ? ':force_original_aspect_ratio=decrease' : ''} ${tempDir.path}/$currentTime-$i.png';
       final convertSession = await FFmpegKit.execute(convertCommand);
       final convertReturnCode = await convertSession.getReturnCode();
       if (!ReturnCode.isSuccess(convertReturnCode)) {

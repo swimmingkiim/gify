@@ -14,7 +14,10 @@ class GifyNative extends GifyPlatform {
   }
 
   @override
-  Future<List<Uint8List>?> getFramesBytes(XFile videoFile, int fps) async {
+  Future<List<Uint8List>?> getFramesBytes(
+    XFile videoFile, {
+    int fps = 1,
+  }) async {
     final frames =
         await videoRepositoryNative.getFramesFromVideo(videoFile, fps);
     return frames;
@@ -22,21 +25,37 @@ class GifyNative extends GifyPlatform {
 
   @override
   Future<Uint8List?> createGifFromVideo(
-    XFile videoFile,
-    int fps,
-  ) async {
-    final gifBytes =
-        await gifRepositoryNative.createGifFromVideo(videoFile, fps);
+    XFile videoFile, {
+    int fps = 1,
+    int? width,
+    int? height,
+    bool forceOriginalAspectRatio = true,
+  }) async {
+    final gifBytes = await gifRepositoryNative.createGifFromVideo(
+      videoFile,
+      fps: fps,
+      width: width,
+      height: height,
+      forceOriginalAspectRatio: forceOriginalAspectRatio,
+    );
     return gifBytes;
   }
 
   @override
   Future<Uint8List?> createGifFromImages(
-    List<XFile> imageFiles,
-    int fps,
-  ) async {
-    final gifBytes =
-        await gifRepositoryNative.createGifFromImages(imageFiles, fps);
+    List<XFile> imageFiles, {
+    int fps = 1,
+    int? width,
+    int? height,
+    bool forceOriginalAspectRatio = true,
+  }) async {
+    final gifBytes = await gifRepositoryNative.createGifFromImages(
+      imageFiles,
+      fps: fps,
+      width: width,
+      height: height,
+      forceOriginalAspectRatio: forceOriginalAspectRatio,
+    );
     return gifBytes;
   }
 }

@@ -1,6 +1,13 @@
 // ==================== ffmpeg.wasm version ====================
 
-async function getGifFromVideo(path, frameRate, onEnd) {
+async function getGifFromVideo(
+    path, 
+    frameRate,
+    width,
+    height,
+    forceOriginalAspectRatio,
+    onEnd,
+    ) {
     const { createFFmpeg, fetchFile } = FFmpeg;
     const ffmpeg = createFFmpeg({
         log: true,
@@ -13,6 +20,8 @@ async function getGifFromVideo(path, frameRate, onEnd) {
     await ffmpeg.run(
         "-i",
         `${currentTime}.avi`,
+        "-vf",
+        `scale=w=${width}:h=${height}${forceOriginalAspectRatio ? ':force_original_aspect_ratio=decrease' : ''}`,
         "-r",
         `${frameRate}`,
         "-loop",
@@ -26,7 +35,10 @@ async function getGifFromVideo(path, frameRate, onEnd) {
 async function getGifFromImages(
     imagePaths,
     frameRate,
-    onEnd
+    width,
+    height,
+    forceOriginalAspectRatio,
+    onEnd,
 ) {
     const { createFFmpeg, fetchFile } = FFmpeg;
     const currentTime = Date.now();
@@ -55,6 +67,8 @@ async function getGifFromImages(
         await ffmpeg.run(
             "-i",
             `${currentTime}-${i}.${fileType}`,
+            "-vf",
+            `scale=w=${width}:h=${height}${forceOriginalAspectRatio ? ':force_original_aspect_ratio=decrease' : ''}`,
             `${currentTime}-${i}.png`
         );
         const temp = ffmpeg.FS("readFile", `${currentTime}-${i}.png`);

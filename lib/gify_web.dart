@@ -22,31 +22,52 @@ class GifyWeb extends GifyPlatform {
   }
 
   @override
-  Future<List<Uint8List>?> getFramesBytes(XFile videoFile, int fps) async {
+  Future<List<Uint8List>?> getFramesBytes(
+    XFile videoFile, {
+    int fps = 1,
+  }) async {
     final frames = await getFramesBytesFromVideo(videoFile.path, fps);
     return frames;
   }
 
   @override
   Future<Uint8List?> createGifFromVideo(
-    XFile videoFile,
-    int fps,
-  ) async {
-    final gifBytes = await getGifBytesFromVideo(videoFile.path, fps);
+    XFile videoFile, {
+    int fps = 1,
+    int? width,
+    int? height,
+    bool forceOriginalAspectRatio = true,
+  }) async {
+    final gifBytes = await getGifBytesFromVideo(
+      videoFile.path,
+      fps: fps,
+      width: width,
+      height: height,
+      forceOriginalAspectRatio: forceOriginalAspectRatio,
+    );
     return gifBytes;
   }
 
   @override
   Future<Uint8List?> createGifFromImages(
-    List<XFile> imageFiles,
-    int fps,
-  ) async {
+    List<XFile> imageFiles, {
+    int fps = 1,
+    int? width,
+    int? height,
+    bool forceOriginalAspectRatio = true,
+  }) async {
     final imagePathsWithType = imageFiles.map<List<String>>((file) {
       final fileType =
           file.mimeType == null ? 'unknown' : file.mimeType!.split('/').last;
       return List<String>.from([file.path, fileType]);
     }).toList();
-    final gifBytes = await getGifBytesFromImages(imagePathsWithType, fps);
+    final gifBytes = await getGifBytesFromImages(
+      imagePathsWithType,
+      fps: fps,
+      width: width,
+      height: height,
+      forceOriginalAspectRatio: forceOriginalAspectRatio,
+    );
     return gifBytes;
   }
 }

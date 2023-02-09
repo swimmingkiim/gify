@@ -9,21 +9,42 @@ import 'gify_platform_interface.dart';
 export 'gify_native.dart';
 
 class Gify {
-  Future<List<Uint8List>?> getFramesBytes(XFile videoFile, int fps) async {
-    return GifyPlatform.instance.getFramesBytes(videoFile, fps);
+  Future<List<Uint8List>?> getFramesBytes(
+    XFile videoFile, {
+    int fps = 1,
+  }) async {
+    return GifyPlatform.instance.getFramesBytes(videoFile, fps: fps);
   }
 
   Future<Uint8List?> createGifFromVideo(
-    XFile videoFile,
-    int fps,
-  ) async {
-    return GifyPlatform.instance.createGifFromVideo(videoFile, fps);
+    XFile videoFile, {
+    int fps = 1,
+    int? width,
+    int? height,
+    bool forceOriginalAspectRatio = true,
+  }) async {
+    return GifyPlatform.instance.createGifFromVideo(
+      videoFile,
+      fps: fps,
+      width: width,
+      height: height,
+      forceOriginalAspectRatio: forceOriginalAspectRatio,
+    );
   }
 
   Future<Uint8List?> createGifFromImages(
-    List<XFile> imageFiles,
-    int fps,
-  ) async {
-    return GifyPlatform.instance.createGifFromImages(imageFiles, fps);
+    List<XFile> imageFiles, {
+    int fps = 1,
+    int? width,
+    int? height,
+    bool forceOriginalAspectRatio = true,
+  }) async {
+    return GifyPlatform.instance.createGifFromImages(
+      imageFiles,
+      fps: fps,
+      width: width,
+      height: height,
+      forceOriginalAspectRatio: forceOriginalAspectRatio,
+    );
   }
 }

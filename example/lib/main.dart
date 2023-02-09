@@ -19,6 +19,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final _gifyPlugin = Gify();
+  Uint8List? bytes;
 
   @override
   void initState() {
@@ -29,9 +30,13 @@ class _MyAppState extends State<MyApp> {
     final XFile? videoFile =
         await ImagePicker().pickVideo(source: ImageSource.gallery);
     if (videoFile != null) {
-      final result = await _gifyPlugin.getFramesBytes(videoFile, 1);
+      final result = await _gifyPlugin.getFramesBytes(videoFile, fps: 1);
       // Uncomment below code to see result
-      // print(result);
+      setState(() {
+        if (result != null) {
+          bytes = result[0];
+        }
+      });
       return result;
     }
     return null;
@@ -41,9 +46,14 @@ class _MyAppState extends State<MyApp> {
     final XFile? videoFile =
         await ImagePicker().pickVideo(source: ImageSource.gallery);
     if (videoFile != null) {
-      final result = await _gifyPlugin.createGifFromVideo(videoFile, 1);
+      final result =
+          await _gifyPlugin.createGifFromVideo(videoFile, fps: 1, height: 320);
       // Uncomment below code to see result
-      // print(result);
+      setState(() {
+        if (result != null) {
+          bytes = result;
+        }
+      });
       return result;
     }
     return null;
@@ -51,9 +61,14 @@ class _MyAppState extends State<MyApp> {
 
   Future<Uint8List?> testImagesToGif() async {
     final List<XFile> imageFiles = await ImagePicker().pickMultiImage();
-    final result = await _gifyPlugin.createGifFromImages(imageFiles, 1);
+    final result =
+        await _gifyPlugin.createGifFromImages(imageFiles, fps: 1, height: 480);
     // Uncomment below code to see result
-    // print(result);
+    setState(() {
+      if (result != null) {
+        bytes = result;
+      }
+    });
     return result;
   }
 
@@ -84,6 +99,7 @@ class _MyAppState extends State<MyApp> {
                 child: const Text('test createGifFromImages'),
               ),
             ),
+            if (bytes != null) Image.memory(bytes!)
           ],
         ),
       ),
