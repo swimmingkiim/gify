@@ -1,3 +1,9 @@
+## 1.0.3
+
+- Add width option for `createGifFromVideo` and `createGifFromImages`
+- Add height option for `createGifFromVideo` and `createGifFromImages`
+- Add forceOriginalAspectRatio option for `createGifFromVideo` and `createGifFromImages`
+
 ## 1.0.2
 
 - Fix frame sort order

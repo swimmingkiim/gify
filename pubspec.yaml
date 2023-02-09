@@ -1,6 +1,6 @@
 name: gify
-description: Make GIF with video and images
-version: 1.0.2
+description: Make GIF with video and images, control speed with fps, set size when create GIF
+version: 1.0.3
 homepage: https://github.com/swimmingkiim/gify
 
 environment:
