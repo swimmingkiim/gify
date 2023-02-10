@@ -9,7 +9,8 @@ environment:
 
 dependencies:
   cross_file: ^0.3.3+2
-  ffmpeg_kit_flutter: ^5.1.0
+  # ffmpeg_kit_flutter: ^5.1.0
+  ffmpeg_kit_flutter_full: ^5.1.0
   flutter:
     sdk: flutter
   flutter_web_plugins:

@@ -3,10 +3,12 @@
 
 import 'package:cross_file/cross_file.dart';
 import 'package:flutter/services.dart';
+import 'package:gify/gify_text_message.dart';
 
 import 'gify_platform_interface.dart';
 
 export 'gify_native.dart';
+export 'gify_text_message.dart';
 
 class Gify {
   Future<List<Uint8List>?> getFramesBytes(
@@ -22,6 +24,7 @@ class Gify {
     int? width,
     int? height,
     bool forceOriginalAspectRatio = true,
+    List<GifyTextMessage>? textMessages,
   }) async {
     return GifyPlatform.instance.createGifFromVideo(
       videoFile,
@@ -29,6 +32,7 @@ class Gify {
       width: width,
       height: height,
       forceOriginalAspectRatio: forceOriginalAspectRatio,
+      textMessages: textMessages,
     );
   }
 
@@ -38,6 +42,7 @@ class Gify {
     int? width,
     int? height,
     bool forceOriginalAspectRatio = true,
+    List<GifyTextMessage>? textMessages,
   }) async {
     return GifyPlatform.instance.createGifFromImages(
       imageFiles,
@@ -45,6 +50,7 @@ class Gify {
       width: width,
       height: height,
       forceOriginalAspectRatio: forceOriginalAspectRatio,
+      textMessages: textMessages,
     );
   }
 }

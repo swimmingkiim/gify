@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:cross_file/cross_file.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'package:gify/gify.dart';
 import 'package:gify/web/gif_repository_web_function.dart';
 import 'package:gify/web/import_js_files.dart';
 import 'package:gify/web/video_repository_web_function.dart';
@@ -37,6 +40,7 @@ class GifyWeb extends GifyPlatform {
     int? width,
     int? height,
     bool forceOriginalAspectRatio = true,
+    List<GifyTextMessage>? textMessages,
   }) async {
     final gifBytes = await getGifBytesFromVideo(
       videoFile.path,
@@ -44,6 +48,11 @@ class GifyWeb extends GifyPlatform {
       width: width,
       height: height,
       forceOriginalAspectRatio: forceOriginalAspectRatio,
+      textMessagesJsonString: jsonEncode(
+        textMessages
+            ?.map<Map<String, dynamic>>((textMessage) => textMessage.asMap())
+            .toList(),
+      ),
     );
     return gifBytes;
   }
@@ -55,6 +64,7 @@ class GifyWeb extends GifyPlatform {
     int? width,
     int? height,
     bool forceOriginalAspectRatio = true,
+    List<GifyTextMessage>? textMessages,
   }) async {
     final imagePathsWithType = imageFiles.map<List<String>>((file) {
       final fileType =
@@ -67,6 +77,11 @@ class GifyWeb extends GifyPlatform {
       width: width,
       height: height,
       forceOriginalAspectRatio: forceOriginalAspectRatio,
+      textMessagesJsonString: jsonEncode(
+        textMessages
+            ?.map<Map<String, dynamic>>((textMessage) => textMessage.asMap())
+            .toList(),
+      ),
     );
     return gifBytes;
   }

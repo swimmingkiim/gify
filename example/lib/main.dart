@@ -46,8 +46,23 @@ class _MyAppState extends State<MyApp> {
     final XFile? videoFile =
         await ImagePicker().pickVideo(source: ImageSource.gallery);
     if (videoFile != null) {
-      final result =
-          await _gifyPlugin.createGifFromVideo(videoFile, fps: 1, height: 320);
+      final result = await _gifyPlugin
+          .createGifFromVideo(videoFile, fps: 1, height: 320, textMessages: [
+        const GifyTextMessage(
+          text: 'test111',
+          fontColor: Color.fromRGBO(247, 24, 7, 1),
+          fontSize: 30,
+          x: 10.0,
+          y: 310.0,
+        ),
+        const GifyTextMessage(
+          text: 'test222',
+          fontColor: Color.fromRGBO(7, 67, 247, 1),
+          fontSize: 20,
+          x: 30.0,
+          y: 30.0,
+        ),
+      ]);
       // Uncomment below code to see result
       setState(() {
         if (result != null) {
@@ -61,8 +76,26 @@ class _MyAppState extends State<MyApp> {
 
   Future<Uint8List?> testImagesToGif() async {
     final List<XFile> imageFiles = await ImagePicker().pickMultiImage();
-    final result =
-        await _gifyPlugin.createGifFromImages(imageFiles, fps: 1, height: 480);
+    final result = await _gifyPlugin.createGifFromImages(imageFiles,
+        fps: 1,
+        width: 300,
+        height: 480,
+        textMessages: [
+          const GifyTextMessage(
+            text: 'test111',
+            fontColor: Color.fromRGBO(247, 24, 7, 1),
+            fontSize: 30,
+            x: 10.0,
+            y: 10.0,
+          ),
+          const GifyTextMessage(
+            text: 'test222',
+            fontColor: Color.fromRGBO(7, 67, 247, 1),
+            fontSize: 20,
+            x: 30.0,
+            y: 30.0,
+          ),
+        ]);
     // Uncomment below code to see result
     setState(() {
       if (result != null) {

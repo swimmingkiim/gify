@@ -7,8 +7,8 @@ import 'package:flutter/services.dart';
 
 // packages
 import 'package:cross_file/cross_file.dart';
-import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
-import 'package:ffmpeg_kit_flutter/return_code.dart';
+import 'package:ffmpeg_kit_flutter_full/ffmpeg_kit.dart';
+import 'package:ffmpeg_kit_flutter_full/return_code.dart';
 import 'package:path_provider/path_provider.dart';
 
 class VideoRepositoryNative {

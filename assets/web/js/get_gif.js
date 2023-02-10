@@ -6,6 +6,7 @@ async function getGifFromVideo(
     width,
     height,
     forceOriginalAspectRatio,
+    textMessages,
     onEnd,
     ) {
     const { createFFmpeg, fetchFile } = FFmpeg;
@@ -16,12 +17,20 @@ async function getGifFromVideo(
     });
     await ffmpeg.load();
     const currentTime = Date.now();
+    const textMessagesCommand = textMessages === null  ? '' : ', ' + JSON.parse(textMessages).map((message) => {
+        return `drawtext=fontsize=${message.fontSize}:fontfile=pretendard.woff:fontcolor=${message.fontColor}:text=${message.text}:x=${message.x}:y=${message.y}`;
+    }).join(', ')
+    await ffmpeg.FS(
+        "writeFile",
+        "pretendard.woff",
+        await fetchFile("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    );
     ffmpeg.FS("writeFile", `${currentTime}.avi`, await fetchFile(path));
     await ffmpeg.run(
         "-i",
         `${currentTime}.avi`,
         "-vf",
-        `scale=w=${width}:h=${height}${forceOriginalAspectRatio ? ':force_original_aspect_ratio=decrease' : ''}`,
+        `scale=w=${width}:h=${height}${forceOriginalAspectRatio ? ':force_original_aspect_ratio=decrease' : ''}${textMessagesCommand}`,
         "-r",
         `${frameRate}`,
         "-loop",
@@ -38,10 +47,14 @@ async function getGifFromImages(
     width,
     height,
     forceOriginalAspectRatio,
+    textMessages,
     onEnd,
 ) {
     const { createFFmpeg, fetchFile } = FFmpeg;
     const currentTime = Date.now();
+    const textMessagesCommand = textMessages === null  ? '' : ', ' + JSON.parse(textMessages).map((message) => {
+        return `drawtext=fontsize=${message.fontSize}:fontfile=pretendard.woff:fontcolor=${message.fontColor}:text=${message.text}:x=${message.x}:y=${message.y}`;
+    }).join(', ')
     const ffmpeg = createFFmpeg({
         log: true,
         corePath: new URL("ffmpeg-core/ffmpeg-core.js", location).href,
@@ -64,11 +77,16 @@ async function getGifFromImages(
             `${currentTime}-${i}.${fileType}`,
             await fetchFile(imagePaths[i][0])
         );
+        await ffmpeg.FS(
+            "writeFile",
+            "pretendard.woff",
+            await fetchFile("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff")
+        );
         await ffmpeg.run(
             "-i",
             `${currentTime}-${i}.${fileType}`,
             "-vf",
-            `scale=w=${width}:h=${height}${forceOriginalAspectRatio ? ':force_original_aspect_ratio=decrease' : ''}`,
+            `scale=w=${width}:h=${height}${forceOriginalAspectRatio ? ':force_original_aspect_ratio=decrease' : ''}${textMessagesCommand}`,
             `${currentTime}-${i}.png`
         );
         const temp = ffmpeg.FS("readFile", `${currentTime}-${i}.png`);

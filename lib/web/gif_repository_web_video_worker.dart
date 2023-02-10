@@ -24,6 +24,7 @@ void main() {
     final int width = e.data['width'] ?? -1;
     final int height = e.data['height'] ?? -1;
     final bool forceOriginalAspectRatio = e.data['forceOriginalAspectRatio'];
+    final String? textMessages = e.data['textMessages'];
     final Completer completer = Completer();
     late List<int> data;
 
@@ -37,6 +38,7 @@ void main() {
       width,
       height,
       forceOriginalAspectRatio,
+      textMessages,
       universal_js.allowInterop((results) {
         final byteBuffer = results as ByteBuffer;
         data = byteBuffer.asUint8List();

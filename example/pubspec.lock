@@ -97,11 +97,11 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
-  ffmpeg_kit_flutter:
+  ffmpeg_kit_flutter_full:
     dependency: transitive
     description:
-      name: ffmpeg_kit_flutter
-      sha256: f631fbf54e8a62ac36d79475280d7a0b042139ffa6662c88cb6896c71f3f0cfa
+      name: ffmpeg_kit_flutter_full
+      sha256: "50b87a673f0fadb76ca449cd5dac2d9f2324d20694321ce3535e09d8ea528500"
       url: "https://pub.dev"
     source: hosted
     version: "5.1.0"

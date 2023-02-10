@@ -5858,7 +5858,7 @@
     $call$body$main_closure(e) {
       var $async$goto = 0,
         $async$completer = A._makeAsyncAwaitCompleter(type$.void),
-        width, height, forceOriginalAspectRatio, data, t1, t2, t3, imagePaths, fps;
+        width, height, forceOriginalAspectRatio, textMessages, data, t1, t2, t3, imagePaths, fps;
       var $async$call$1 = A._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
         if ($async$errorCode === 1)
           return A._asyncRethrow($async$result, $async$completer);
@@ -5876,12 +5876,13 @@
               t1 = J.$index$asx(new A._AcceptStructuredCloneDart2Js([], []).convertNativeToDart_AcceptStructuredClone$2$mustCopy(e.data, true), "height");
               height = A._asInt(t1 == null ? -1 : t1);
               forceOriginalAspectRatio = A._asBool(J.$index$asx(new A._AcceptStructuredCloneDart2Js([], []).convertNativeToDart_AcceptStructuredClone$2$mustCopy(e.data, true), "forceOriginalAspectRatio"));
+              textMessages = A._asStringQ(J.$index$asx(new A._AcceptStructuredCloneDart2Js([], []).convertNativeToDart_AcceptStructuredClone$2$mustCopy(e.data, true), "textMessages"));
               J.importScripts$1$x(self.self, "./ffmpeg-core/ffmpeg-core.js");
               J.importScripts$1$x(self.self, "./ffmpeg.min.js");
               J.importScripts$1$x(self.self, "./get_gif.js");
               t1 = new A._Future($.Zone__current, type$._Future_dynamic);
               data = A._Cell$named("data");
-              self.getGifFromImages(imagePaths, fps, width, height, forceOriginalAspectRatio, A.allowInterop(new A.main__closure0(data, new A._AsyncCompleter(t1, type$._AsyncCompleter_dynamic)), type$.Function));
+              self.getGifFromImages(imagePaths, fps, width, height, forceOriginalAspectRatio, textMessages, A.allowInterop(new A.main__closure0(data, new A._AsyncCompleter(t1, type$._AsyncCompleter_dynamic)), type$.Function));
               $async$goto = 2;
               return A._asyncAwait(t1, $async$call$1);
             case 2:

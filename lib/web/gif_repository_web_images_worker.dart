@@ -27,6 +27,7 @@ void main() {
     final int width = e.data['width'] ?? -1;
     final int height = e.data['height'] ?? -1;
     final bool forceOriginalAspectRatio = e.data['forceOriginalAspectRatio'];
+    final String? textMessages = e.data['textMessages'];
 
     self.importScripts('$basePath/ffmpeg-core/ffmpeg-core.js');
     self.importScripts('$basePath/ffmpeg.min.js');
@@ -40,6 +41,7 @@ void main() {
       width,
       height,
       forceOriginalAspectRatio,
+      textMessages,
       universal_js.allowInterop((results) {
         final byteBuffer = results as ByteBuffer;
         data = byteBuffer.asUint8List();

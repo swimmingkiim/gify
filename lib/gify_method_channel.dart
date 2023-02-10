@@ -1,6 +1,7 @@
 import 'package:cross_file/cross_file.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:gify/gify.dart';
 
 import 'gify_platform_interface.dart';
 
@@ -27,6 +28,7 @@ class MethodChannelGify extends GifyPlatform {
     int? width,
     int? height,
     bool forceOriginalAspectRatio = true,
+    List<GifyTextMessage>? textMessages,
   }) async {
     final gifBytes = await methodChannel
         .invokeMethod<Uint8List>('createGifFromVideo', <String, dynamic>{
@@ -35,6 +37,7 @@ class MethodChannelGify extends GifyPlatform {
       'width': width,
       'height': height,
       'forceOriginalAspectRatio': forceOriginalAspectRatio,
+      'textMessages': textMessages,
     });
     return gifBytes;
   }
@@ -46,6 +49,7 @@ class MethodChannelGify extends GifyPlatform {
     int? width,
     int? height,
     bool forceOriginalAspectRatio = true,
+    List<GifyTextMessage>? textMessages,
   }) async {
     final gifBytes = await methodChannel
         .invokeMethod<Uint8List>('createGifFromImages', <String, dynamic>{
@@ -54,6 +58,7 @@ class MethodChannelGify extends GifyPlatform {
       'width': width,
       'height': height,
       'forceOriginalAspectRatio': forceOriginalAspectRatio,
+      'textMessages': textMessages,
     });
     return gifBytes;
   }

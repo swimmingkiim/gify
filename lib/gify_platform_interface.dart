@@ -1,5 +1,6 @@
 import 'package:cross_file/cross_file.dart';
 import 'package:flutter/services.dart';
+import 'package:gify/gify.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'gify_method_channel.dart';
@@ -38,6 +39,7 @@ abstract class GifyPlatform extends PlatformInterface {
     int? width,
     int? height,
     bool forceOriginalAspectRatio = true,
+    List<GifyTextMessage>? textMessages,
   }) async {
     throw UnimplementedError('createGifFromVideo() has not been implemented.');
   }
@@ -48,6 +50,7 @@ abstract class GifyPlatform extends PlatformInterface {
     int? width,
     int? height,
     bool forceOriginalAspectRatio = true,
+    List<GifyTextMessage>? textMessages,
   }) async {
     throw UnimplementedError('createGifFromImages() has not been implemented.');
   }

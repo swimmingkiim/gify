@@ -16,6 +16,7 @@ external getGifFromVideo(
   int width,
   int height,
   bool forceOriginalAspectRatio,
+  String? textMessagesJsonString,
   Function onEnd,
 );
 
@@ -26,6 +27,7 @@ external getGifFromImages(
   int width,
   int height,
   bool forceOriginalAspectRatio,
+  String? textMessagesJsonString,
   Function onEnd,
 );
 
@@ -35,6 +37,7 @@ Future<Uint8List> getGifBytesFromVideo(
   int? width,
   int? height,
   bool forceOriginalAspectRatio = true,
+  String? textMessagesJsonString,
 }) async {
   String basePath = 'assets/packages/gify/assets/web/js';
   // web worker
@@ -46,6 +49,7 @@ Future<Uint8List> getGifBytesFromVideo(
     'width': width,
     'height': height,
     'forceOriginalAspectRatio': forceOriginalAspectRatio,
+    'textMessages': textMessagesJsonString,
   });
   final result = await worker.onMessage.first;
   return Uint8List.fromList(result.data);
@@ -57,6 +61,7 @@ Future<Uint8List> getGifBytesFromImages(
   int? width,
   int? height,
   bool forceOriginalAspectRatio = true,
+  String? textMessagesJsonString,
 }) async {
   String basePath = 'assets/packages/gify/assets/web/js';
   // web worker
@@ -68,6 +73,7 @@ Future<Uint8List> getGifBytesFromImages(
     'width': width,
     'height': height,
     'forceOriginalAspectRatio': forceOriginalAspectRatio,
+    'textMessages': textMessagesJsonString,
   });
   final result = await worker.onMessage.first;
   return Uint8List.fromList(result.data);

@@ -1,5 +1,6 @@
 import 'package:cross_file/cross_file.dart';
 import 'package:flutter/services.dart';
+import 'package:gify/gify.dart';
 import 'package:gify/gify_platform_interface.dart';
 import 'package:gify/native/gif_repository_native.dart';
 import 'package:gify/native/video_repository_native.dart';
@@ -30,6 +31,7 @@ class GifyNative extends GifyPlatform {
     int? width,
     int? height,
     bool forceOriginalAspectRatio = true,
+    List<GifyTextMessage>? textMessages,
   }) async {
     final gifBytes = await gifRepositoryNative.createGifFromVideo(
       videoFile,
@@ -37,6 +39,7 @@ class GifyNative extends GifyPlatform {
       width: width,
       height: height,
       forceOriginalAspectRatio: forceOriginalAspectRatio,
+      textMessages: textMessages,
     );
     return gifBytes;
   }
@@ -48,6 +51,7 @@ class GifyNative extends GifyPlatform {
     int? width,
     int? height,
     bool forceOriginalAspectRatio = true,
+    List<GifyTextMessage>? textMessages,
   }) async {
     final gifBytes = await gifRepositoryNative.createGifFromImages(
       imageFiles,
@@ -55,6 +59,7 @@ class GifyNative extends GifyPlatform {
       width: width,
       height: height,
       forceOriginalAspectRatio: forceOriginalAspectRatio,
+      textMessages: textMessages,
     );
     return gifBytes;
   }
