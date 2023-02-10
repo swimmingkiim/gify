@@ -37,8 +37,6 @@ flutter pub add gify
         await ImagePicker().pickVideo(source: ImageSource.gallery);
     if (videoFile != null) {
       final result = await _gifyPlugin.getFramesBytes(videoFile, fps:1);
-      // Uncomment below code to see result
-      // print(result);
       return result;
     }
     return null;
@@ -49,8 +47,6 @@ flutter pub add gify
         await ImagePicker().pickVideo(source: ImageSource.gallery);
     if (videoFile != null) {
       final result = await _gifyPlugin.createGifFromVideo(videoFile, fps:1, width: 320);
-      // Uncomment below code to see result
-      // print(result);
       return result;
     }
     return null;
@@ -58,9 +54,26 @@ flutter pub add gify
 
   Future<Uint8List?> testImagesToGif() async {
     final List<XFile> imageFiles = await ImagePicker().pickMultiImage();
-    final result = await _gifyPlugin.createGifFromImages(imageFiles, fps: 5, height: 780);
-    // Uncomment below code to see result
-    // print(result);
+    final result = await _gifyPlugin.createGifFromImages(imageFiles,
+        fps: 1,
+        width: 300,
+        height: 480,
+        textMessages: [
+          const GifyTextMessage(
+            text: 'test111',
+            fontColor: Color.fromRGBO(247, 24, 7, 1),
+            fontSize: 30,
+            x: 10.0,
+            y: 10.0,
+          ),
+          const GifyTextMessage(
+            text: 'test222',
+            fontColor: Color.fromRGBO(7, 67, 247, 1),
+            fontSize: 20,
+            x: 30.0,
+            y: 30.0,
+          ),
+        ]);
     return result;
   }
 ```
