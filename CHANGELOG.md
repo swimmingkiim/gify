@@ -1,5 +1,8 @@
 ## 1.0.3
 
+- Add text features with `GifyTextMessage`
+## 1.0.3
+
 - Add width option for `createGifFromVideo` and `createGifFromImages`
 - Add height option for `createGifFromVideo` and `createGifFromImages`
 - Add forceOriginalAspectRatio option for `createGifFromVideo` and `createGifFromImages`
