@@ -1,3 +1,6 @@
+## 1.0.5
+
+- Hot Fix error when textMessages field is null in web
 ## 1.0.4
 
 - Add text features with `GifyTextMessage`
