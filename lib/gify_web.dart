@@ -48,11 +48,14 @@ class GifyWeb extends GifyPlatform {
       width: width,
       height: height,
       forceOriginalAspectRatio: forceOriginalAspectRatio,
-      textMessagesJsonString: jsonEncode(
-        textMessages
-            ?.map<Map<String, dynamic>>((textMessage) => textMessage.asMap())
-            .toList(),
-      ),
+      textMessagesJsonString: textMessages == null
+          ? null
+          : jsonEncode(
+              textMessages
+                  .map<Map<String, dynamic>>(
+                      (textMessage) => textMessage.asMap())
+                  .toList(),
+            ),
     );
     return gifBytes;
   }
@@ -77,11 +80,14 @@ class GifyWeb extends GifyPlatform {
       width: width,
       height: height,
       forceOriginalAspectRatio: forceOriginalAspectRatio,
-      textMessagesJsonString: jsonEncode(
-        textMessages
-            ?.map<Map<String, dynamic>>((textMessage) => textMessage.asMap())
-            .toList(),
-      ),
+      textMessagesJsonString: textMessages == null
+          ? null
+          : jsonEncode(
+              textMessages
+                  .map<Map<String, dynamic>>(
+                      (textMessage) => textMessage.asMap())
+                  .toList(),
+            ),
     );
     return gifBytes;
   }
