@@ -1,3 +1,6 @@
+## 1.0.7
+
+- Fix size option in `createGifFromImages`
 ## 1.0.6
 
 - Fix text error in native
