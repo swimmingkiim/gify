@@ -1,3 +1,6 @@
+## 1.0.6
+
+- Fix text error in native
 ## 1.0.5
 
 - Hot Fix error when textMessages field is null in web
