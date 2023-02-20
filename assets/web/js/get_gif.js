@@ -103,7 +103,7 @@ async function getGifFromImages(
         "-i",
         `${currentTime}-%d.png`,
         "-vf",
-        `scale=w=${width}:h=${height}${forceOriginalAspectRatio ? ':force_original_aspect_ratio=decrease' : ''},pad=${width < 0 ? 'ow': width}:${height < 0 ? 'oh': height}:-1:-1:color=black@0${textMessagesCommand}`,
+        `scale=w=${width < 0 ? height < 0 ? -1 : height : width}:h=${height < 0 ? width < 0 ? -1 : width : height}${forceOriginalAspectRatio ? ':force_original_aspect_ratio=decrease' : ''},pad=\'max(${width < 0 ? height < 0 ? -1 : height : width}, iw)\':\'max(${height < 0 ? width < 0 ? -1 : width : height}, ih)\':-1:-1:color=black@0${textMessagesCommand}`,
         "-loop",
         "0",
         `gif_maker_result_${currentTime}.gif`
