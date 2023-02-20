@@ -29,7 +29,7 @@ class GifRepositoryNative {
     await FFmpegKitConfig.setFontDirectoryList(
         [tempDir.path, "/system/fonts", "/System/Library/Fonts"], {});
     const fontName = 'Roboto Bold';
-    final String currentTime = DateTime.now().millisecond.toString();
+    final String currentTime = DateTime.now().millisecondsSinceEpoch.toString();
     final textMessagesCommand = textMessages == null
         ? ''
         : ',${textMessages.map((message) => 'drawtext=font=\'$fontName\':fontsize=${message.fontSize}:fontcolor=0x${message.fontColor.toHex()}:text="${message.text}":x=${message.x}:y=${message.y}').join(',')}';
@@ -73,7 +73,7 @@ class GifRepositoryNative {
     await FFmpegKitConfig.setFontDirectoryList(
         [tempDir.path, "/system/fonts", "/System/Library/Fonts"], {});
     const fontName = 'Roboto Bold';
-    final String currentTime = DateTime.now().millisecond.toString();
+    final String currentTime = DateTime.now().millisecondsSinceEpoch.toString();
     final textMessagesCommand = textMessages == null
         ? ''
         : textMessages
@@ -91,7 +91,7 @@ class GifRepositoryNative {
         path = image.path;
       }
       final String convertCommand =
-          '-i $path -vf scale=w=${width ?? -1}:h=${height ?? -1}${forceOriginalAspectRatio ? ':force_original_aspect_ratio=decrease' : ''} ${tempDir.path}/$currentTime-$i.png';
+          '-i $path -vf scale=w=${width ?? height ?? -1}:h=${height ?? width ?? -1}${forceOriginalAspectRatio ? ':force_original_aspect_ratio=decrease' : ''} ${tempDir.path}/$currentTime-$i.png';
       final convertSession = await FFmpegKit.execute(convertCommand);
       final convertReturnCode = await convertSession.getReturnCode();
       if (!ReturnCode.isSuccess(convertReturnCode)) {
@@ -100,7 +100,7 @@ class GifRepositoryNative {
     }
 
     final String gifCommand =
-        '-f image2 -r $fps -i ${tempDir.path}/$currentTime-%d.png -vf scale=w=${width ?? -1}:h=${height ?? -1}${forceOriginalAspectRatio ? ':force_original_aspect_ratio=decrease' : ''} -loop 0 ${tempDir.path}/gif_maker_result_$currentTime.gif';
+        '-f image2 -r $fps -i ${tempDir.path}/$currentTime-%d.png -vf "pad=width=\'max(${width ?? height ?? -1},iw)\':height=\'max(${height ?? width ?? -1},ih)\':x=-1:y=-1:color=black@0" -loop 0 ${tempDir.path}/gif_maker_result_$currentTime.gif';
     final gifSession = await FFmpegKit.execute(gifCommand);
 
     final gifReturnCode = await gifSession.getReturnCode();

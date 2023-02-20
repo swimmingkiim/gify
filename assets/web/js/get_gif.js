@@ -52,7 +52,7 @@ async function getGifFromImages(
 ) {
     const { createFFmpeg, fetchFile } = FFmpeg;
     const currentTime = Date.now();
-    const textMessagesCommand = textMessages === null  ? '' : ', ' + JSON.parse(textMessages).map((message) => {
+    const textMessagesCommand = textMessages === null  ? '' : ',' + JSON.parse(textMessages).map((message) => {
         return `drawtext=fontsize=${message.fontSize}:fontfile=pretendard.woff:fontcolor=${message.fontColor}:text=${message.text}:x=${message.x}:y=${message.y}`;
     }).join(', ')
     const ffmpeg = createFFmpeg({
@@ -77,16 +77,11 @@ async function getGifFromImages(
             `${currentTime}-${i}.${fileType}`,
             await fetchFile(imagePaths[i][0])
         );
-        await ffmpeg.FS(
-            "writeFile",
-            "pretendard.woff",
-            await fetchFile("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff")
-        );
         await ffmpeg.run(
             "-i",
             `${currentTime}-${i}.${fileType}`,
             "-vf",
-            `scale=w=${width}:h=${height}${forceOriginalAspectRatio ? ':force_original_aspect_ratio=decrease' : ''}${textMessagesCommand}`,
+            `scale=w=${width}:h=${height}${forceOriginalAspectRatio ? ':force_original_aspect_ratio=decrease' : ''}`,
             `${currentTime}-${i}.png`
         );
         const temp = ffmpeg.FS("readFile", `${currentTime}-${i}.png`);
@@ -95,6 +90,11 @@ async function getGifFromImages(
         console.log("done move");
         await ffmpeg.load();
     }
+    await ffmpegGif.FS(
+        "writeFile",
+        "pretendard.woff",
+        await fetchFile("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff") 
+    );
     await ffmpegGif.run(
         "-f",
         "image2",
@@ -102,6 +102,8 @@ async function getGifFromImages(
         `${frameRate}`,
         "-i",
         `${currentTime}-%d.png`,
+        "-vf",
+        `scale=w=${width}:h=${height}${forceOriginalAspectRatio ? ':force_original_aspect_ratio=decrease' : ''},pad=${width < 0 ? 'ow': width}:${height < 0 ? 'oh': height}:-1:-1:color=black@0${textMessagesCommand}`,
         "-loop",
         "0",
         `gif_maker_result_${currentTime}.gif`
