@@ -110,7 +110,7 @@ class GifRepositoryNative {
     }
 
     final String gifWithTextCommand =
-        '-i ${tempDir.path}/gif_maker_result_$currentTime.gif${textMessagesCommand.isNotEmpty ? ' -vf $textMessagesCommand' : ''} ${tempDir.path}/gif_maker_result_${currentTime}_text.gif';
+        '-i ${tempDir.path}/gif_maker_result_$currentTime.gif -vf scale=w=${width ?? -1}:h=${height ?? -1}${textMessagesCommand.isNotEmpty ? ',$textMessagesCommand' : ''} ${tempDir.path}/gif_maker_result_${currentTime}_text.gif';
     final gifTextSession = await FFmpegKit.execute(gifWithTextCommand);
 
     final gifTextReturnCode = await gifTextSession.getReturnCode();
